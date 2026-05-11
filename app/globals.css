@@ -1,0 +1,264 @@
+@import "tailwindcss";
+
+/* ============================================
+   ACADEMIC + CATHOLIC IDENTITY DESIGN SYSTEM
+   Văn chương Khôn ngoan trong Kinh Thánh
+   ============================================ */
+
+@theme {
+  /* Color Palette */
+  --color-parchment: #FCFCEA;
+  --color-parchment-deep: #F5F0E1;
+  --color-charcoal: #242424;
+  --color-body: #333333;
+  --color-gold: #D4AF37;
+  --color-gold-light: #E8D48B;
+  --color-gold-dark: #B8961F;
+  --color-purple: #7D287D;
+  --color-purple-light: #9A4D9A;
+  --color-purple-dark: #5C1B5C;
+  --color-red: #C62D25;
+  --color-red-light: #E04940;
+  --color-cream: #FFFEF5;
+
+  /* Font families */
+  --font-serif: "Merriweather", "Georgia", "Times New Roman", serif;
+  --font-sans: "Inter", "Segoe UI", "Roboto", system-ui, sans-serif;
+}
+
+/* Dark Mode Variables */
+.dark {
+  --color-parchment: #161514;
+  --color-parchment-deep: #1e1c1b;
+  --color-charcoal: #f0ebe1;
+  --color-body: #d1cdc6;
+  --color-gold: #b39126;
+  --color-gold-light: #d4af37;
+  --color-gold-dark: #8f721a;
+  --color-purple: #9a429a;
+  --color-purple-light: #b95eb9;
+  --color-purple-dark: #7d287d;
+  --color-red: #e04940;
+  --color-red-light: #f2665e;
+  --color-cream: #2a2826;
+}
+
+/* ============================================
+   BASE STYLES
+   ============================================ */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 6rem;
+}
+
+body {
+  background-color: var(--color-parchment);
+  color: var(--color-body);
+  font-family: var(--font-serif);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Subtle parchment texture via gradient */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 20% 50%, rgba(212, 175, 55, 0.03), transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(125, 40, 125, 0.02), transparent 50%),
+    radial-gradient(ellipse at 50% 80%, rgba(212, 175, 55, 0.02), transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ============================================
+   SELECTION HIGHLIGHT
+   ============================================ */
+::selection {
+  background-color: rgba(212, 175, 55, 0.25);
+  color: var(--color-charcoal);
+}
+
+/* ============================================
+   SCROLLBAR STYLING
+   ============================================ */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-parchment);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-gold);
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-gold-dark);
+}
+
+/* ============================================
+   ANIMATION KEYFRAMES
+   ============================================ */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+@keyframes pulse-gold {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.3); }
+  50% { box-shadow: 0 0 0 6px rgba(212, 175, 55, 0); }
+}
+
+/* ============================================
+   UTILITY ANIMATION CLASSES
+   ============================================ */
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+.animate-slide-in-left {
+  animation: slideInLeft 0.5s ease-out forwards;
+}
+
+/* ============================================
+   PROSE CONTAINER
+   ============================================  /* Academic Prose Customizations */
+  .prose-academic {
+    @apply max-w-[70ch] mx-auto;
+  }
+  
+  .prose-academic .academic-paragraph {
+    @apply text-justify hyphens-auto leading-[1.8] text-charcoal/90 text-base md:text-lg;
+    text-indent: 1.25rem;
+  }
+
+  @media (min-width: 768px) {
+    .prose-academic .academic-paragraph {
+      @apply leading-[1.85];
+      text-indent: 1.5rem;
+    }
+  }
+  
+  /* Remove text-indent for paragraphs immediately following a heading */
+  .prose-academic h2 + .academic-paragraph,
+  .prose-academic h3 + .academic-paragraph,
+  .prose-academic blockquote + .academic-paragraph,
+  .prose-academic table + .academic-paragraph {
+    text-indent: 0;
+  }
+
+  /* Drop cap for the very first paragraph in the article */
+  .prose-academic .academic-paragraph:first-of-type::first-letter {
+    @apply text-4xl md:text-5xl font-serif font-bold text-gold-dark float-left mr-2 md:mr-3 mt-1 leading-none;
+  }
+  
+  /* Ensure proper spacing for list items */
+  .prose-academic li {
+    @apply mb-2 text-justify text-base md:text-lg;
+  }
+
+/* Smooth transitions for theme switching */
+* {
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+
+/* ============================================
+   TOC ACTIVE STATE
+   ============================================ */
+.toc-link {
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.toc-link.active {
+  color: var(--color-gold-dark);
+  font-weight: 600;
+}
+
+.toc-link.active::before {
+  content: "";
+  position: absolute;
+  left: -12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 70%;
+  background: linear-gradient(to bottom, var(--color-gold), var(--color-gold-dark));
+  border-radius: 999px;
+}
+
+/* ============================================
+   CITATION TOOLTIP
+   ============================================ */
+.citation-tooltip {
+  animation: fadeIn 0.2s ease-out;
+}
+
+/* ============================================
+   READING PROGRESS BAR
+   ============================================ */
+.reading-progress {
+  background: linear-gradient(
+    90deg,
+    var(--color-gold-dark),
+    var(--color-gold),
+    var(--color-gold-light)
+  );
+  background-size: 200% 100%;
+  animation: shimmer 3s linear infinite;
+}
+
+/* ============================================
+   PRINT STYLES
+   ============================================ */
+@media print {
+  body {
+    background: white;
+    color: black;
+  }
+
+  body::before {
+    display: none;
+  }
+
+  nav, footer, .toc-sidebar, .reading-progress {
+    display: none !important;
+  }
+}
